@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaj Tak Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h2 {
+            font-size: 20px;
+            margin: 0 0 5px;
+            color: #fff;
+        }
+
+        .profile-info p {
+            font-size: 14px;
+            margin: 0;
+            color: #ccc;
+        }
+
+        .metrics-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .metric-item p {
+            margin: 0;
+            font-size: 14px;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-left: 5px;
+        }
+
+        .metric-item i {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        .details-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .details-section h3 {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #fff;
+        }
+
+        .details-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .details-section th,
+        .details-section td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .details-section th {
+            background-color: #444;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .details-section td {
+            background-color: #222;
+            color: #ccc;
+        }
+
+        .spectrum-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #fff;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .chart-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #999;
+        }
+
+        .chart-point {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+        }
+
+        .chart-labels span {
+            display: inline-block;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .table-wrapper {
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    max-width: 100%;
+        }
+        .responsive-table {
+    /* Add the following styles */
+    width: 100%;
+    max-width: 100%;
+    font-size: 70%
+    
+}
+
+        @media (max-width: 600px) {
+            .profile-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .profile-info h2 {
+                font-size: 18px;
+                margin-bottom: 3px;
+            }
+
+            .profile-info p {
+                font-size: 12px;
+            }
+
+            .metrics-container {
+                flex-wrap: wrap;
+            }
+
+            .metric-item {
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <img class="profile-image" src="https://upload.wikimedia.org/wikipedia/hi/thumb/0/0d/%E0%A4%86%E0%A4%9C_%E0%A4%A4%E0%A4%95_%E0%A4%B2%E0%A5%8B%E0%A4%97%E0%A5%8B.svg/1280px-%E0%A4%86%E0%A4%9C_%E0%A4%A4%E0%A4%95_%E0%A4%B2%E0%A5%8B%E0%A4%97%E0%A5%8B.svg.png" alt="Aaj Tak Profile Image">
+        <div class="profile-info">
+            <h2>Aaj Tak</h2>
+            <p>India's No.1 Hindi News Channel</p>
+            <div class="metrics-container">
+                <div class="metric-item">
+                    <i class="fab fa-youtube"></i>
+                    <p>5M+ Subscribers</p>
+                </div>
+                <div class="metric-item">
+                    <i class="fab fa-twitter"></i>
+                    <p>2M+ Followers</p>
+                </div>
+                <div class="metric-item">
+                    <i class="fab fa-facebook"></i>
+                    <p>3M+ Followers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="details-section">
+        <h3>About Aaj Tak</h3>
+        <div class="table-wrapper">
+        <table class="responsive-table">
+            <tr>
+                <th>Founded</th>
+                <td>1999</td>
+            </tr>
+            <tr>
+                <th>Headquarters</th>
+                <td>Noida, Uttar Pradesh, India</td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td>Hindi</td>
+            </tr>
+            <tr>
+                <th>Official Website</th>
+                <td><a href="https://www.aajtak.in">https://www.aajtak.in</a></td>
+           
+            </tr>
+            <tr>
+                <th>YouTube</th>
+                <td><a href="https://www.youtube.com/user/aajtaktv">https://www.youtube.com/user/aajtaktv</a></td>
+            </tr>
+            <tr>
+                <th>Twitter</th>
+                <td><a href="https://twitter.com/aajtak">https://twitter.com/aajtak</a></td>
+            </tr>
+            <tr>
+                <th>Facebook</th>
+                <td><a href="https://www.facebook.com/aajtak">https://www.facebook.com/aajtak</a></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+    <div class="spectrum-section">
+        <h3 class="section-title">Political Spectrum</h3>
+        <div class="chart-container">
+            <div class="chart-line"></div>
+            <div class="chart-point" id="chartPoint"></div>
+            <div class="chart-labels">
+                <span>Left</span>
+                <span>Center</span>
+                <span>Right</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ideologyScore = 65; // Set the person's ideology score here
+            const chartPoint = document.getElementById("chartPoint");
+
+            // Normalize the ideology score to a value between 0 and 1
+            const normalizedScore = (ideologyScore - 1) / 99;
+
+            // Set the position of the chart point based on the normalized score
+            chartPoint.style.left = `${normalizedScore * 100}%`;
+        });
+    </script>
+</body>
+</html>

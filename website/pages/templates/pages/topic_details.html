@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+   
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {% include 'header.html' %}
+</head>
+<body class="lg:max-w-[1200px]">
+   
+            <div class="custom-font">
+                <div class="flex py-5 align-middle items-center w-full justify-center place-items-center">
+                    <h1 id="title" class="card-title align-middle  text-white text-xl font-bold px-5">#{{ title }}</h1>
+                </div>
+            </div>  
+
+            <div class="flex flex-col lg:grid lg:grid-cols-2 lg:py-5  gap-2 ">
+                <div class=" lg:mx-auto bg-gray-800 rounded-xl border border-[#787A91] border-opacity-50 shadow-md overflow-hidden md:max-w-2xl  text-white lg:w-full mx-4 ">
+                    <div class="flex flex-col md:flex-row text-2xs md:text-sm w-full md:h-full">
+                        <div class="align-baseline p-2 lg:p-8 border-b md:border-b-0 md:border-r border-gray-500 text-center md:text-left display-font ">
+                            <div class="text-base text-sm font-medium text-gray-400  ">
+                                First appeared on
+                            </div>
+                            <div class="md:text-2xl font-bold text-[#ff4560]">
+                                {{ first_appeared_date|date:"F d, Y" }}
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 w-full mx-auto flex flex-col place-items-center ">
+                            <img src="{{ last_video_thumbnail_url }}" alt="Last Video Thumbnail" class="object-cover h-36 w-96 rounded-lg lg:w-full lg:h-full">
+        
+                            <h2 class="mt-1 text-base md:text-lg leading-tight font-medium text-white">{{ title }}</h2>
+                            <p class="text-[11px] mt-2 text-gray-400">{{ synopsis }}</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="rounded-xl w-full h-auto   lg:px-6 text-white lg:border lg:border-[#787A91] lg:border-opacity-50 ">
+                    <div class="p-4 md:p-2 mt-auto">
+                        <h2 class="text-[#FF4560]  flex flex-row justify-center font-bold mb-4 px-4 py-2 text-sm">Top Channels Covering "{{ title }}" <button id="trendingTopics" class="text-white shadow-lg rounded-full focus:outline-none">
+                            <i class="fas fa-info-circle fa-xs text-[#ff4560] p-1"></i>
+                        </button></h2>
+                        <p class="text-sm md:text-base leading-6 text-gray-400 mb-2 ">Total videos for this topic: {{ topic_count }}</p>
+                        <ul class="space-y-2 md:space-y-4">
+                            {% for channel in top_channels %}
+                                {% if channel.video_count > 0 %}
+                                    {% with rank=forloop.counter %}
+                                        <li class="flex items-center">
+                                            <div class="flex-shrink-0">
+                                                <span class="inline-block h-6 w-6 md:h-8 md:w-8 rounded-full overflow-hidden bg-gray-700 text-white text-sm font-medium text-center lg:py-2">{{ rank }}</span>
+                                            </div>
+                                            <div class="flex items-center ml-2 md:ml-4">
+                                                <img class="h-6 w-6 md:h-10 md:w-10 rounded-full" src="{{ channel.logo.url }}" alt="{{ channel.name }} logo">
+                                                <a href="{% url 'channel_name' slug=channel.slug %}" class="ml-2 text-xs md:text-sm leading-6 font-medium text-white underline hover:text-blue-500">{{ channel.name }}</a>
+                                            </div>
+                                            <div class="ml-auto text-sm md:text-base leading-6 text-gray-400">{{ channel.video_count }}</div>
+                                        </li>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            {% if related_topics %}
+            <div class=" text-white rounded-lg shadow-lg p-4 bg-gray-800 lg:flex lg:flex-row lg:gap-2 lg:py-2 lg:place-items-center">
+              <h2 class="text-sm font-bold mb-2 lg:pt-2">Related Topics</h2>
+              <div class="text- flex gap-3 overflow-x-auto">
+                {% for topic in related_topics %}
+                <div class="flex items-center justify-between py-2 gap-3 bg-gray-900 rounded-lg px-2 shadow-lg lg:py-1 hover:bg-gray-500 ">
+                  <a href="{% url 'topic_details' topic=topic.topic %}" class="flex-nowrap">
+                    <button class="w-auto text-left text-white flex-1" style="font-size:10px; white-space:nowrap;">
+                      {{ topic.topic }}
+                    </button>
+                  </a>
+                  <span class="bg-[#ff4560] text-white rounded-lg px-3 py-1 text-xs flex-shrink-0">{{ topic.video_count }}</span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+           
+          <div class=" rounded-xl shadow-md m-4">
+            <h2 class="text-[#FF4560]  flex flex-row justify-center font-bold mb-4 px-4 py-2 text-sm ">"{{ title }}" Popularity Over Week <button id="trendingTopics" class="text-white shadow-lg rounded-full focus:outline-none">
+                <i class="fas fa-info-circle fa-xs text-[#ff4560] p-1"></i>
+            </button></h2>
+            <div id="chart" class="w-full  "></div>
+            </div>
+    
+           
+
+            <div class=" fact-check-section bg-gray-800 rounded-xl shadow-md mx-4 lg:mx-0 border border-[#787A91] border-opacity-50  text-white lg:w-full">
+                <h2 class="text-[#FF4560]  flex flex-row justify-center font-bold mb-4 px-4 py-2 "> Recent Fact Check <button id="trendingTopics" class="text-white shadow-lg rounded-full focus:outline-none">
+                    <i class="fas fa-info-circle fa-xs text-[#ff4560] p-1"></i>
+                </button></h2>
+                <ul class="fact-check-list text-xs p-4 lg:p-8">
+                    <!-- Fact checks will be inserted here by JavaScript -->
+                    
+                </ul>
+                <button class=" flex justify-center ">
+                    <a href="/fact-check/?search_term={{ title }}" class="text-white text-xs p-4 lg:pl-8 hover:text-[#ff4560] hover:font-bold">View All Fact Checks</a>
+                </button>
+            </div>
+            <div class="rounded-xl  overflow-hidden mx-4 lg:mx-0 my-2  border border-[#787A91] border-opacity-50 shadow-lg  text-[#EEEEEE]">
+                <div class="p-4 md:p-8">
+                    <h2 class="text-[#FF4560]  flex flex-row justify-center font-bold mb-4 px-4 py-2">Latest Videos</h2>
+                    <ul class="space-y-2 md:space-y-4">
+                        {% for video in latest_videos %}
+                            <li class="flex items-center  border-gray-800 border-b">
+                                <div class="flex-shrink-0">
+                                    <div class="h-18 w-24">
+                                        <img class="object-contain rounded-lg " src="{{ video.thumbnail_url }}" alt="Video Thumbnail">
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-xs md:text-sm leading-5 font-medium text-white hover:text-[#FF2949] cursor-pointer">{{ video.title }}</h3>
+                                    <p class="text-xs text-gray-400">{{ video.channel.name }}</p>
+                                    <p class="text-xs text-gray-400">{{ video.published_date }}</p>
+                                </div>
+                            </li>
+                        {% empty %}
+                            <p class="text-gray-400">No videos available.</p>
+                        {% endfor %}
+                    </ul>
+                     <!-- Pagination Navigation -->
+                      
+                </div>
+            </div>
+            
+            <script>
+                // Fetch fact checks using AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/fact-check-view/?search_term={{ title }}', true);
+                xhr.onload = function() {
+                    if (this.status >= 200 && this.status < 400) {
+                        // Success!
+                        var data = JSON.parse(this.response);
+                        var factChecks = data.fact_checks;
+                        var factCheckList = document.querySelector('.fact-check-list');
+            
+                        if (factChecks.length === 0) {
+                            var noFactCheckMessage = document.createElement('p');
+                            noFactCheckMessage.textContent = 'No enough fact checks available on this topic.';
+                            factCheckList.appendChild(noFactCheckMessage);
+                        } else {
+                            factChecks.forEach(function(factCheck) {
+                                fetch(factCheck.claimReview[0].url)
+                                    .then(response => response.text())
+                                    .then(html => {
+                                        const parser = new DOMParser();
+                                        const htmlDoc = parser.parseFromString(html, "text/html");
+                                        const ogImage = htmlDoc.querySelector('meta[property="og:image"]');
+                                        let imageUrl;
+                                        if (ogImage) {
+                                            imageUrl = ogImage.getAttribute("content");
+                                        } else {
+                                            imageUrl = 'https://www.sciencespo.fr/research/cogito/wp-content/uploads/2019/03/shutterstock_1036271818-300x300.jpg';
+                                        }
+                                        
+                                        var listItem = document.createElement('li');
+                                        listItem.className = 'fact-check-item rounded-lg shadow-md  mb-2 flex flex-col lg:flex-row';
+                                        
+                                        var imageElement = document.createElement('img');
+                                        imageElement.src = imageUrl;
+                                        imageElement.className = 'w-96 object-cover rounded-lg flex-shrink-0 justify-center lg:w-[20%]  lg:mr-4 h-28 ';
+                                        imageElement.alt = factCheck.claimReview[0].publisher.site;
+                                        
+                                        var textDiv = document.createElement('div');
+                                        textDiv.className = 'flex flex-col flex-grow';
+                                        
+                                        var title = document.createElement('h3');
+                                        title.className = 'text-sm font-semibold my-2 hover:text-[#FF4560]';
+                                        var titleLink = document.createElement('a');
+                                        titleLink.href = factCheck.claimReview[0].url;
+                                        titleLink.textContent = factCheck.text;
+                                        title.appendChild(titleLink);
+                                        
+                                        var claimDate = document.createElement('p');
+                                        claimDate.className = 'text-gray-300 text-xs mb-2 ';
+                                        claimDate.textContent = 'Claim Date: ' + factCheck.claimDate.slice(0, 10);
+                                        
+                                        var claimant = document.createElement('p');
+                                        claimant.className = 'text-xs lg:text-[10px] mb-2 ';
+                                        claimant.textContent = 'Claimant: ' + factCheck.claimant;
+                                        
+                                        var rating = document.createElement('p');
+                                        rating.className = 'text-xs lg:text-sm display-font mb-2';
+                                        rating.innerHTML = '<strong>Rating:</strong> ' + factCheck.claimReview[0].textualRating;
+                                        
+                                        textDiv.appendChild(title);
+                                        textDiv.appendChild(claimDate);
+                                        textDiv.appendChild(claimant);
+                                        textDiv.appendChild(rating);
+                                        
+                                        listItem.appendChild(imageElement);
+                                        listItem.appendChild(textDiv);
+                                        
+                                        factCheckList.appendChild(listItem);
+                                        
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                            });
+                        }
+                    } else {
+                        // We reached our target server, but it returned an error
+                        console.error('Server returned an error');
+                    }
+                };
+                xhr.onerror = function() {
+                    // There was a connection error of some sort
+                    console.error('Connection error');
+                };
+                xhr.send();
+            </script>
+    
+        <script>
+            var options = {
+                chart: {
+                    type: 'area',
+                    foreColor: '#ffffff',
+                    zoom: {
+                        enabled: false
+                    },
+                    toolbar: {
+                        show: false
+                    },
+                    theme: {
+                        mode: 'dark',
+                    },
+                    height: 350,
+                },
+                title: {
+                    text: 'Popularity',
+                    align: 'left',
+                    style: {
+                        color: '#ffffff'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                },
+                series: [{
+                    name: 'Topic Popularity',
+                    data: {{ daily_counts_json | safe }} // Django will replace the placeholder with actual data
+                }],
+                xaxis: {
+                    categories: {{ day_labels | safe }}, // Django will replace with actual data
+                    labels: {
+                        style: {
+                            colors: '#f9fafb'
+                        }
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Videos',
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            colors: '#f9fafb'
+                        }
+                    }
+                },
+                grid: {
+                    borderColor: '#4A5568'
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.5,
+                        stops: [0, 90, 100]
+                    }
+                },
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
+        </script>
+
+        
+</body>
+{% include 'footer.html' %}
+</html>

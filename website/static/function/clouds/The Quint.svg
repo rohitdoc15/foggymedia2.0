@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+<style>@font-face{font-family:'Arya';font-weight:normal;font-style:normal;src:url("data:application/font-woff;charset=utf-8;base64,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")format("woff");}</style>
+<style>text{font-family:'Arya';font-weight:normal;font-style:normal;}</style>
+<text transform="translate(210,698)" font-size="307" style="fill:rgb(186, 137, 92)">Quint</text>
+<text transform="translate(134,298)" font-size="215" style="fill:rgb(149, 96, 119)">First</text>
+<text transform="translate(538,319)" font-size="215" style="fill:rgb(132, 78, 138)">Film</text>
+<text transform="translate(79,864)" font-size="91" style="fill:rgb(252, 213, 50)">&amp;#39;Adipurush&amp;#39;</text>
+<text transform="translate(251,384)" font-size="91" style="fill:rgb(122, 67, 149)">Heavy</text>
+<text transform="translate(538,387)" font-size="91" style="fill:rgb(122, 67, 149)">Rains</text>
+<text transform="translate(161,452) rotate(-90)" font-size="91" style="fill:rgb(186, 134, 77)">You</text>
+<text transform="translate(110,606)" font-size="68" style="fill:rgb(252, 204, 3)">Day</text>
+<text transform="translate(391,111)" font-size="68" style="fill:rgb(169, 119, 106)">Show</text>
+<text transform="translate(653,109)" font-size="68" style="fill:rgb(184, 133, 88)">reactions</text>
+<text transform="translate(678,443)" font-size="67" style="fill:rgb(122, 67, 149)">Prabhas,</text>
+<text transform="translate(636,500)" font-size="67" style="fill:rgb(122, 67, 149)">Saif</text>
+<text transform="translate(186,745) rotate(-90)" font-size="67" style="fill:rgb(253, 204, 3)">Ali</text>
+<text transform="translate(471,548) rotate(-90)" font-size="67" style="fill:rgb(122, 67, 150)">Khan</text>
+<text transform="translate(161,109)" font-size="67" style="fill:rgb(224, 176, 45)">Review:</text>
+<text transform="translate(753,742)" font-size="67" style="fill:rgb(239, 190, 19)">Om</text>
+<text transform="translate(577,917)" font-size="67" style="fill:rgb(226, 187, 92)">Raut&amp;#39;s</text>
+<text transform="translate(457,756)" font-size="67" style="fill:rgb(195, 143, 68)">Take</text>
+<text transform="translate(94,917)" font-size="67" style="fill:rgb(253, 216, 63)">Ramayana</text>
+<text transform="translate(261,436)" font-size="67" style="fill:rgb(122, 68, 149)">Lacks</text>
+<text transform="translate(734,157)" font-size="67" style="fill:rgb(225, 175, 34)">Steam</text>
+<text transform="translate(581,751)" font-size="67" style="fill:rgb(124, 69, 148)">Watch</text>
+<text transform="translate(390,924)" font-size="67" style="fill:rgb(253, 216, 67)">Assam</text>
+<text transform="translate(89,497)" font-size="67" style="fill:rgb(252, 204, 3)">Hit</text>
+<text transform="translate(476,468)" font-size="67" style="fill:rgb(122, 67, 150)">by</text>
+<text transform="translate(270,149)" font-size="52" style="fill:rgb(128, 74, 142)">Monsoon</text>
+<text transform="translate(765,479)" font-size="52" style="fill:rgb(164, 111, 102)">What</text>
+<text transform="translate(205,503) rotate(-90)" font-size="52" style="fill:rgb(124, 69, 147)">Happens</text>
+<text transform="translate(111,281) rotate(-90)" font-size="52" style="fill:rgb(252, 207, 18)">Your</text>
+<text transform="translate(195,747)" font-size="52" style="fill:rgb(253, 204, 3)">Body</text>
+<text transform="translate(608,182) rotate(-90)" font-size="52" style="fill:rgb(252, 213, 51)">When</text>
+<text transform="translate(750,352)" font-size="52" style="fill:rgb(163, 110, 104)">Stop</text>
+<text transform="translate(240,467)" font-size="45" style="fill:rgb(122, 67, 149)">Smoking?</text>
+<text transform="translate(364,764)" font-size="45" style="fill:rgb(252, 204, 3)">Best</text>
+<text transform="translate(574,422)" font-size="45" style="fill:rgb(123, 68, 150)">2023</text>
+<text transform="translate(447,789)" font-size="38" style="fill:rgb(252, 204, 3)">Haven&amp;#39;t</text>
+<text transform="translate(84,639)" font-size="38" style="fill:rgb(252, 205, 8)">Seen</text>
+<text transform="translate(621,143)" font-size="38" style="fill:rgb(189, 137, 75)">Dhuin</text>
+<text transform="translate(85,138)" font-size="38" style="fill:rgb(252, 204, 5)">Review</text>
+<text transform="translate(272,559)" font-size="38" style="fill:rgb(123, 69, 148)">Do</text>
+<text transform="translate(450,608)" font-size="38" style="fill:rgb(122, 67, 149)">I</text>
+<text transform="translate(782,945)" font-size="38" style="fill:rgb(252, 213, 50)">Like</text>
+<text transform="translate(527,951)" font-size="38" style="fill:rgb(253, 224, 104)">Podcast</text>
+<text transform="translate(266,591)" font-size="38" style="fill:rgb(122, 67, 149)">Why</text>
+<text transform="translate(172,942)" font-size="38" style="fill:rgb(253, 222, 94)">Many</text>
+<text transform="translate(781,771)" font-size="38" style="fill:rgb(253, 204, 3)">Indians</text>
+<text transform="translate(81,527)" font-size="38" style="fill:rgb(252, 208, 23)">Forced</text>
+<text transform="translate(282,949)" font-size="38" style="fill:rgb(253, 223, 100)">Seek</text>
+<text transform="translate(149,779)" font-size="28" style="fill:rgb(252, 204, 7)">&amp;#39;Professional</text>
+<text transform="translate(561,471)" font-size="28" style="fill:rgb(122, 67, 149)">Blood</text>
+<text transform="translate(670,524)" font-size="28" style="fill:rgb(122, 68, 149)">Donors&amp;#39;?</text>
+<text transform="translate(768,181)" font-size="28" style="fill:rgb(217, 167, 42)">Indian-Origin</text>
+<text transform="translate(898,673) rotate(-90)" font-size="28" style="fill:rgb(253, 226, 113)">Doctor</text>
+<text transform="translate(558,681) rotate(-90)" font-size="28" style="fill:rgb(122, 67, 149)">‘Responsible’</text>
+<text transform="translate(343,173)" font-size="28" style="fill:rgb(122, 67, 149)">California</text>
+<text transform="translate(674,798) rotate(-90)" font-size="28" style="fill:rgb(124, 69, 149)">Car</text>
+<text transform="translate(657,941)" font-size="28" style="fill:rgb(213, 179, 132)">Crash,</text>
+<text transform="translate(413,946)" font-size="28" style="fill:rgb(253, 224, 106)">Barred</text>
+<text transform="translate(859,948)" font-size="28" style="fill:rgb(252, 217, 70)">from</text>
+<text transform="translate(108,770) rotate(-90)" font-size="28" style="fill:rgb(253, 204, 3)">Practicing</text>
+<text transform="translate(643,703) rotate(-90)" font-size="28" style="fill:rgb(122, 67, 149)">&amp;#39;Wrestlers</text>
+<text transform="translate(385,319)" font-size="28" style="fill:rgb(124, 69, 149)">Protest</text>
+<text transform="translate(877,488)" font-size="28" style="fill:rgb(253, 203, 3)">Not</text>
+<text transform="translate(472,141)" font-size="28" style="fill:rgb(131, 76, 139)">Political,</text>
+<text transform="translate(482,520)" font-size="28" style="fill:rgb(122, 67, 150)">No</text>
+<text transform="translate(93,958)" font-size="28" style="fill:rgb(252, 224, 104)">Role</text>
+<text transform="translate(212,486)" font-size="24" style="fill:rgb(133, 79, 137)">Congress&amp;#39;:</text>
+<text transform="translate(856,791)" font-size="24" style="fill:rgb(253, 204, 3)">Sakshi</text>
+<text transform="translate(700,642)" font-size="24" style="fill:rgb(122, 67, 150)">Malik</text>
+<text transform="translate(818,380)" font-size="24" style="fill:rgb(253, 204, 3)">Satyawart</text>
+<text transform="translate(139,661)" font-size="24" style="fill:rgb(253, 204, 3)">Kadian</text>
+<text transform="translate(494,412)" font-size="24" style="fill:rgb(122, 67, 150)">Trigger</text>
+<text transform="translate(582,279)" font-size="24" style="fill:rgb(122, 67, 149)">Flash</text>
+<text transform="translate(276,621)" font-size="24" style="fill:rgb(122, 67, 149)">Floods</text>
+<text transform="translate(267,280)" font-size="24" style="fill:rgb(124, 69, 149)">in</text>
+<text transform="translate(687,784)" font-size="24" style="fill:rgb(122, 67, 150)">Sikkim,</text>
+<text transform="translate(155,959)" font-size="24" style="fill:rgb(253, 230, 132)">Indian</text>
+<text transform="translate(482,362)" font-size="24" style="fill:rgb(122, 67, 150)">Army</text>
+<text transform="translate(300,320)" font-size="24" style="fill:rgb(122, 67, 149)">Rescues</text>
+<text transform="translate(367,520)" font-size="24" style="fill:rgb(122, 67, 150)">2,000</text>
+<text transform="translate(131,548)" font-size="24" style="fill:rgb(253, 204, 3)">Tourists</text>
+</svg>

@@ -1,0 +1,39 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<div class="flex flex-row justify-center">
+  <table class="bg-gray-800 text-white w-[95%]  text-sm rounded-lg shadow-lg lg:w-full lg:w-auto px-2">
+    <thead class="">
+      <tr class="text-[11px]">
+        <th class="px-1 py-2">Rank</th>
+        <th class="px-4 py-2 whitespace-nowrap w-[20%]">Name</th>
+        <th class="px-4 py-2">Average Video Upload/Day</th>
+        <th class="px-4 py-2">Fake News Rating</th>
+        <th class="px-4 py-2">Credibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for channel in channels %}
+      <tr class="">
+        <td class="px-4 py-2 text-center">{{ channel.youtube_rank }}</td>
+        <td class="px-4 py-2 flex items-center whitespace-nowrap">
+          <img class="w-8 h-8 rounded-full mr-2 " src="{{ channel.logo.url }}" alt="{{ channel.name }}">
+          <a href="{% url 'channel_name' slug=channel.slug %}" class="text-blue-500 hover:underline dark:text-blue-300">
+            {{ channel.name }}
+          </a>
+        </td>
+        <td class="px-4 py-2 text-center">{{ channel.avg_videos_per_day }}</td>
+        <td class="px-4 py-2 text-center">{{ channel.fake_news_rating }}</td>
+        <td class="px-4 py-2 text-center">{{ channel.credibility }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+
+{% include "footer.html" %}

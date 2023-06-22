@@ -1,0 +1,780 @@
+{% include "header.html" %}
+{% load static %}
+<html>
+<body id ="modals-here" class=" w-full  bg-fixed dark text-[#f0f0f0 ] custom-font" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'  >
+
+    <div class="swiper-container overflow-x-auto swiper-scrollbar" style="scrollbar-width: thin; scrollbar-color: transparent transparent;">
+        <div class="swiper-wrapper" style="display: flex;">
+            {% for channel in channels %}
+            <div class="swiper-slide" style="flex: 0 0 auto;">
+                <div class="filter w-20 h-20 rounded-full overflow-hidden bg-[gray-300] flex items-center justify-center">
+                    <img 
+                    src="{{ channel.logo.url }}" 
+                    alt="{{ channel.name }} Logo" 
+                    class="max-w-full max-h-full object-cover rounded-full filter brightness-50 contrast-150 grayscale-100"
+                    hx-get="/story/{{ channel.name }}" 
+                    hx-target="#modals-here" 
+                    hx-trigger="click"
+                    onclick="updateURL('/story/{{ channel.name }}')"
+                    hx-push-url="true"
+                    >
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.swiper-container', {
+                slidesPerView: 'auto',
+                spaceBetween: 10,
+                
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                    hide: false,
+                    draggable: false,
+                },
+                freeMode: true,
+            });
+        });
+    </script>
+    
+  
+    <div class="bg-gray-800 mt-2 mx-3 rounded border border-gray-600 p-2 text-xs text-white">
+    Total Channel Tracking: <a href="{% url 'channel_list' %}" class="text-[#FF4560] underline hover:text-blue-300">{{ channels.count }}</a>,
+    Last crawl: {{ latest_video_timestamp }}
+    </div>
+  
+    <div class ="lg:grid lg:grid-cols-2 ">
+        <div class="m-4 shadow-lg rounded-md border border-[#787A91] border-opacity-50 bg-gray-900 text-[#EEEEEE] lg:h-[75%] lg:mt-8" >
+            <h2 class="text-[#FF4560]  font-bold mb-4 px-4 py-2 ">Trending Topics<button id="trendingTopics" class="text-white shadow-lg rounded-full focus:outline-none">
+                <i class="fas fa-info-circle fa-xs text-[#ff4560] p-1"></i>
+            </button></h2>
+
+
+            {% for topic in topics %}
+            <form method="POST" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic.topic.topic }}">
+                <div class="mb-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="text-[#787A91] font-bold">#{{ topic.topic.topic }}</div>
+                </div>
+                <hr class="border-blue-500">
+            </form>
+            {% endfor %}
+
+            <form method="POST" class="-mb-2" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic1.topic.topic }}">
+                <div class="mb-4 -mt-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="flex justify-between items-center px-4 py-1">
+                        <div class="text-3xl font-bold">#{{ topic1.topic.topic }}</div>
+                        {% if topic1.trend_indicator == 'upwards' %}
+                        <i class="fa-solid fa-arrow-trend-up" style="color: #00e396;"></i>
+                        {% elif topic1.trend_indicator == 'downwards' %}
+                            <i class="fa-solid fa-arrow-trend-down" style="color: #ff4560;"></i>
+                        {% else %}
+                                <i class="fa-solid fa-arrow-right" style="color: #008ffb;"></i>
+                            {% endif %}
+                            </div>
+                    <hr class="border-[#787A91] border-opacity-50 h-px">
+                </div>
+            </form>
+            
+            <form method="POST" class="-mb-2" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic2.topic.topic }}">
+                <div class="mb-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="flex justify-between items-center px-4 py-1">
+                        <div class=" text-2xl opacity-90  font-bold">#{{ topic2.topic.topic }}</div>
+                        {% if topic2.trend_indicator == 'upwards' %}
+                            <i class="fa-solid fa-arrow-trend-up" style="color: #00e396;"></i>
+                        {% elif topic2.trend_indicator == 'downwards' %}
+                            <i class="fa-solid fa-arrow-trend-down" style="color: #ff4560;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-arrow-right" style="color: #008ffb;"></i>
+                        {% endif %}
+                    </div>
+                    <hr class="border-[#787A91] border-opacity-50 h-px">
+                </div>
+                
+            </form>
+        
+            <form method="POST" class="-mb-2" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic3.topic.topic }}">
+                <div class="mb-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="flex justify-between items-center px-4 py-1">
+
+                    <div class=" text-xl opacity-80 font-bold ">#{{ topic3.topic.topic }}</div>
+                    {% if topic3.trend_indicator == 'upwards' %}
+                            <i class="fa-solid fa-arrow-trend-up" style="color: #00e396;"></i>
+                        {% elif topic3.trend_indicator == 'downwards' %}
+                            <i class="fa-solid fa-arrow-trend-down" style="color: #ff4560;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-arrow-right" style="color: #008ffb;"></i>
+                        {% endif %}
+                    </div>
+                    <hr class="border-[#787A91] border-opacity-50 h-px ">
+                </div>
+            
+            </form>
+            <form method="POST" class="-mb-2" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic4.topic.topic }}">
+                <div class="mb-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="flex justify-between items-center px-4 py-1">
+                    <div class=" text-lg opacity-70 font-bold ">#{{ topic4.topic.topic }}</div>
+                    {% if topic3.trend_indicator == 'upwards' %}
+                            <i class="fa-solid fa-arrow-trend-up" style="color: #00e396;"></i>
+                        {% elif topic3.trend_indicator == 'downwards' %}
+                            <i class="fa-solid fa-arrow-trend-down" style="color: #ff4560;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-arrow-right" style="color: #008ffb;"></i>
+                        {% endif %}
+                    </div>
+                    <hr class="border-[#787A91] border-opacity-50 h-px">
+                </div>
+                
+            </form>
+            <form method="POST" class="-mb-2" action="/topic-page/">
+                {% csrf_token %}
+                <input type="hidden" name="topic" value="{{ topic5.topic.topic }}">
+                <div class="mb-4 cursor-pointer hover:bg-gray-700" onclick="this.parentNode.submit()">
+                    <div class="flex justify-between items-center px-4 py-1">
+                    <div class=" text-sm opacity-70 font-bold ">#{{ topic5.topic.topic }}</div>
+                    {% if topic4.trend_indicator == 'upwards' %}
+                            <i class="fa-solid fa-arrow-trend-up" style="color: #00e396;"></i>
+                        {% elif topic4.trend_indicator == 'downwards' %}
+                            <i class="fa-solid fa-arrow-trend-down" style="color: #ff4560;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-arrow-right" style="color: #008ffb;"></i>
+                        {% endif %}
+                    </div>
+                
+                </div>
+                
+            </form>
+        </div>
+
+
+        
+
+        <!-- Area Chart Section -->
+        <div id="monthly">
+            <div class="flex flex-row ">
+            <h2 class="text-[#FF4560] px-4 flex flex-row justify-center text-xs lg:text-sm font-bold py-2 lg:mt-6 w-">Month in Motion: Unveiling the Trending Topics
+                <button id="monthlyTrend" class="text-white shadow-lg rounded-full focus:outline-none">
+                    <i class="  fas fa-info-circle lg:fa-xs fa-md  text-[#ff4560] p-1"></i>
+                </button>
+            </h2>
+            <div class="flex justify-end mr-4 ">
+                <button onclick="downloadElementAsImage('monthly', 'chart.png')">
+                    <i class=" border rounded-sm p-1 border-gray-700 fa-solid fa-circle-arrow-down fa-md shadow-lg" style="color: #004d18;"></i>
+                </button>
+            </div>
+        </div>
+            <div id="mtrends" class="w-full h-92"></div>
+        </div>
+        
+        <script>
+            // Prepare chart data from the 'chart_data' variable
+            const chartData = {{ data.series|safe }};
+        
+            // Prepare series data for ApexCharts
+            const seriesData = chartData.map((data) => ({
+                name: data.name,
+                data: data.data,
+            }));
+        
+            // Initialize ApexCharts for Area Chart
+            const areaOptions = {
+                series: seriesData,
+                chart: {
+                    type: 'area',
+                    height: 300,
+                    foreColor: "#FFFFFF",
+                    fontFamily: 'Geologica, sans-serif',
+                    fontSize: '15px',
+                    stacked: false,
+                    
+                    
+                    
+                    toolbar: {
+                        show: false,
+                        tools: {
+                            zoomin: true,
+                            zoomout: true,
+                            reset: true,
+                            selection: false,
+                            zoom: false,
+                            download: false,
+                            reset: false,
+                            pan: false,
+
+                        },
+                    },
+                    background: {
+                        opacity: 0,
+                    },
+        
+                },
+                legend: {
+                    show: true,
+                    labels: {
+                        colors: ['#FFFFFF']
+                        
+                    },
+                },    
+
+                {% comment %} title: {
+                    text: "Video trend over the past 30 days " , // Make sure to use double quotes here
+                    align: "center",
+                    floating: false,
+                    style: {
+                        fontSize: '14px', // Adjust the font size as needed
+                        color: '#FF4560',
+                        fontWeight: '200',
+        
+                    },
+                }, {% endcomment %}
+        
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    type: 'datetime',
+                    categories: {{ data.labels | safe }},
+                    position: 'bottom',
+                    labels: {
+                        rotate: 0,
+                        rotateAlways: true,
+                        hideOverlappingLabels: true,
+        
+                        style: {
+                            colors: [],
+                            fontSize: '10px',
+        
+                            cssClass: 'apexcharts-xaxis-label',
+                        },
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                },
+                theme: {
+
+                    palette: 'palette1', // up to palette10
+                },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.6,
+                        opacityTo: 0.05,
+                        stops: [20, 100, 100, 100]
+                    }
+                },
+                responsive: [
+                    {
+                        breakpoint: 767, // Adjust this value based on your desired breakpoint
+                        options: {
+                            chart: {
+                                height: 375, // Increase the chart height for mobile devices
+                            }
+                        }
+                    }
+                ]
+            };
+        
+            const areaChart = new ApexCharts(document.querySelector('#mtrends'), areaOptions);
+            areaChart.render();
+        </script>
+
+
+        <!-- Popular Person Chart Section -->
+        <div id="celeb">
+            <h2 class="text-[#FF4560] px-4 flex flex-row justify-center text-xs lg:text-sm font-bold py-2 lg:mt-6">Riding the Headlines: News' Top Trendsetters
+                <button id="popular" class="text-white shadow-lg rounded-full focus:outline-none">
+                    <i class="fas fa-info-circle lg:fa-xs fa-md  text-[#ff4560] p-1"></i>
+                </button>
+            </h2>
+            <div class="flex justify-end mr-4 ">
+                <button onclick="downloadElementAsImage('celeb', 'chart.png')">
+                    <i class="fa-solid fa-circle-arrow-down fa-sm shadow-lg" style="color: #00922e;"></i>
+                </button>
+            </div>
+            <div id="popularchart"> </div>
+        </div>
+        <script>
+        fetch('/popular-person-chart/')
+        .then(response => response.json())
+        .then(data => {
+            const seriesData = data.series[0].data.map(item => ({
+            x: item.split(' (')[0],
+            y: parseInt(item.match(/\((\d+)\)/)[1])
+            }));
+
+            
+        
+            const options = {
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                show: false
+                },
+                fontFamily: 'inherit',
+                
+            },
+
+            colors: [ '#008FFB'],
+            
+            plotOptions: {
+                bar: {
+                borderRadius: 4,
+                horizontal: true,
+                dataLabels: {
+                    position: 'top'
+                },
+                backgroundColor : '#FF4560',
+                },
+                
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: 60,
+                
+                style: {
+                fontSize: '10px',
+                colors: ["#c4c4c6"]
+                
+                },
+                formatter: function (value, { seriesIndex, dataPointIndex, w }) {
+                const name = data.series[seriesIndex].data[dataPointIndex].split(' (')[0];
+                return name;
+                }
+            },
+            series: [
+                {
+                name: data.series[0].name,
+                data: seriesData
+                }
+            ],
+            xaxis: {
+                type: 'category',
+                categories: data.xaxis.categories.map(date => {
+                const d = new Date(date);
+                const day = d.getDate();
+                const month = d.toLocaleString('default', { month: 'short' });
+                return `${day} ${month}`;
+                }),
+                position: 'bottom',
+                labels: {
+                show: true,
+                rotate: -45,
+                rotateAlways: true,
+                hideOverlappingLabels: true,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#DBDBDC"]
+                }
+                }
+            },
+            
+            yaxis: {
+                type: 'category',
+                labels: {
+                style: {
+                    fontSize: '10px',
+                    colors: Array(20).fill("#DBDBDC"), // Repeating the color 20 times
+                }
+                }
+            }
+          
+            };
+        
+            const chart = new ApexCharts(document.querySelector("#popularchart"), options);
+            chart.render();
+        });
+        
+        </script>
+
+    
+        <div id ="party"> 
+            <h2 class="text-[#FF4560] px-4 flex flex-row justify-center text-xs lg:text-sm font-bold py-2 lg:mt-6">Political Parties Media Coverage %
+                <button id="politicalParty" class="text-white shadow-lg rounded-full focus:outline-none">
+                    <i class="fas fa-info-circle lg:fa-xs fa-md  text-[#ff4560] p-1"></i>
+                </button>
+            </h2>  
+            <div class="flex justify-end mr-4 ">
+                <button onclick="downloadElementAsImage('party', 'chart.png')">
+                    <i class="fa-solid fa-circle-arrow-down fa-sm shadow-lg" style="color: #00922e;"></i>
+                </button>
+            </div>
+        <div id="party-chart"> </div><!-- Radial Bar Gauge Chart Section -->
+        </div>
+        <script>
+            fetch('/video-count/') // Replace with the URL path for your party scores view
+                .then(response => response.json())
+                .then(data => {
+                    var partyScores = data;
+        
+                    // Convert party scores data to an array of objects
+                    var partyData = Object.entries(partyScores).map(([party, score]) => ({
+                        party: party,
+                        score: score
+                    }));
+        
+                    // Sort the party data by score in descending order
+                    partyData.sort((a, b) => b.score - a.score);
+        
+                    // Extract party names and scores for chart
+                    var partyNames = partyData.map(data => data.party);
+                    var partyScores = partyData.map(data => data.score);
+        
+                    // Calculate the total number of videos
+                    var totalVideos = partyScores.reduce((a, b) => a + b, 0);
+        
+                    // Normalize scores to represent the percentage of videos for each party
+                    var normalizedScores = partyScores.map(score => (score / totalVideos) * 100);
+        
+                    // Generate colors for each party
+                    var colors = ['#FF4560','#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#D3D3D3'];
+        
+                    var options = {
+                        chart: {
+                            series: normalizedScores,
+                            height: 350,
+                            type: 'radialBar',
+                            fontFamily: 'Geologica, sans-serif',
+                            fontSize: '15px'
+                        },
+                        series: normalizedScores,
+                        colors: colors,
+                        labels: partyNames,
+                    
+                        
+                        plotOptions: {
+                            radialBar: {
+                                offsetY: 0,
+                                startAngle: 0,
+                                endAngle: 270,
+                                hollow: {
+                                    size: '30%', 
+                                }, // Decrease this value to increase the width of the radial bars
+                                dataLabels: {
+                                    name: {
+                                        show: true,  // Set this to true to show the name labels
+                                        style: {
+                                            colors: ['#FFFFFF']  // Set this to the color you want for the name labels
+                                        }
+                                    },
+                                    value: {
+                                        show: true,  // Set this to true to show the value labels
+                                        formatter: function(val, opts) {
+                                            // Return the percentage of videos for each party rounded to the nearest whole number
+                                            return Math.round(val) + '%';
+                                        },
+                                        color: '#fff' ,  // Set this to the color you want for the value labels
+                                    }
+                                }
+                            }
+                        },
+                        legend: {
+                            show: true,
+                            floating: true,
+                            fontSize: '10 px',
+                            position: 'left',
+                            offsetX: 80,
+                            offsetY: 10,
+                            labels: {
+                            useSeriesColors: true,
+                            },
+                            markers: {
+                            size: 0,
+                            strokeColor: '#fff',
+                            
+                            
+                            },
+                        },
+                        onItemClick: {
+                            toggleDataSeries: false
+                        },
+                        stroke: {
+                            lineCap: "round",
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shade: "light",
+                                type: "horizontal",
+                                shadeIntensity: 0.5,
+                                gradientToColors: colors,
+                                inverseColors: true,
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                                stops: [0, 100]
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                legend: {
+                                    offsetX: 30,
+                                    offsetY: 0
+                                }
+                            }
+                        }]
+        
+                    };
+        
+                    var chart = new ApexCharts(document.querySelector("#party-chart"), options);
+                    chart.render();
+                });
+        </script>
+    
+        {% comment %} Mustard/Petrol Chart {% endcomment %}
+        <div id= "inflation">
+            <h2 class="text-[#FF4560] px-4 flex flex-row justify-center text-xs lg:text-sm font-bold py-2 lg:mt-6">Essentials Inflation
+                <button id="inflation" class="text-white shadow-lg rounded-full focus:outline-none">
+                    <i class="fas fa-info-circle lg:fa-xs fa-md  text-[#ff4560] p-1"></i>
+                </button>
+            </h2>
+            <div class="flex justify-end mr-4 ">
+                <button onclick="downloadElementAsImage('inflation', 'chart.png')">
+                    <i class="fa-solid fa-circle-arrow-down fa-sm shadow-lg" style="color: #00922e;"></i>
+                </button>
+            </div>
+        <div id="inflationchart" class=" shadow-lg custom-font border-gray-900"></div>
+        </div>
+        <script>
+            fetch('/inflation-chart-data')  // Replace with the URL of your inflation chart view
+                .then(response => response.json())
+                .then(data => {
+                    var chartData = data.chart_data;
+        
+                    var options = {
+                        chart: {
+                            type: 'area',
+                            height: 350,
+                            width: '100%',
+                            foreColor: "#EEEEEE",
+                            fontFamily: 'Geologica, sans-serif',
+                            fontSize: '15px',
+                            stacked: false,
+                            dropShadow: {
+                                enabled: true,
+                                enabledSeries: [0],
+                                top: -2,
+                                left: 2,
+                                blur: 5,
+                                opacity: 0.06
+                            },
+                            toolbar: {
+                                show: false,
+                            },
+                            background: {
+                                opacity: 0,
+                            },
+                            
+                        },
+                    
+                        dataLabels: {
+                            enabled: false
+                        },
+                    
+                        stroke: {
+                            curve: 'smooth',
+                            width: 3
+                        },
+                        series: chartData.map(item => ({
+                            name: item.name,
+                            data: item.data
+                        })),
+                        xaxis: {
+                            type: 'datetime',
+                            labels: {
+                                datetimeFormatter: {
+                                    year: 'yyyy',
+                                    month: 'MMM yyyy',
+                                    day: 'dd MMM yyyy'
+                                }
+                            }
+                        },
+                        
+                        theme: {
+                            mode: 'dark',
+                            palette: 'palette1', // up to palette10
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shadeIntensity: 1,
+                                inverseColors: false,
+                                opacityFrom: 0.6,
+                                opacityTo: 0.05,
+                                stops: [20, 100, 100, 100]
+                            }
+                        },
+                        annotations: {
+                            points: [
+                                {
+                                    x: new Date(chartData[0].data[chartData[0].data.length - 1].x).getTime(),
+                                    y: chartData[0].data[chartData[0].data.length - 1].y,
+                                
+                                    image: {
+                                        path: "{% static 'images/mustard.png' %}" ,
+                                        // Replace with the path to your image for Sarso
+                                    }
+                                },
+                                {
+                                    x: new Date(chartData[1].data[chartData[1].data.length - 1].x).getTime(),
+                                    y: chartData[1].data[chartData[1].data.length - 1].y,
+                                
+                                    image: {
+                                        path: "{% static 'images/petrol.png' %}"  // Replace with the path to your image for Petroleum
+                                    }
+                                }
+                            ]
+                        
+                        }
+                    
+                    };
+        
+                    var chart = new ApexCharts(document.querySelector("#inflationchart"), options);
+                    chart.render();
+                });
+        </script>
+        {% comment %} Map {% endcomment %}
+        <div id="seats">
+            <h2 class="text-[#FF4560] px-4 flex flex-row justify-center text-xs lg:text-sm font-bold py-2 mt-6">Political Parties Media Coverage %
+                <button id="seats" class="text-white shadow-lg rounded-full focus:outline-none">
+                        <i class="fas fa-info-circle lg:fa-xs fa-md  text-[#ff4560] p-1"></i>
+                </button>
+             </h2>
+             <div class="flourish-embed flourish-map lg:w-[60%] lg:h-[60%] my-auto mx-auto opacity-90" data-src="visualisation/14123232">
+                    <script src="https://public.flourish.studio/resources/embed.js">
+                        
+                    </script>
+            </div> 
+     
+       </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 mx-2 text-bold text-white  ">
+        
+        <a href="/channels">
+            <button type="submit" class="bg-[#008FFB] w-full py-2 lg:py-4 rounded-lg shadow-md shadow-[#266595] opacity-90">
+              Browse Channels
+              <i class="fas fa-tv fa-xs" style="color: #ffffff;"></i>
+            </button>
+        </a>
+
+        <a href="/fact-check">
+        <button type="submit" class="bg-[#008FFB] w-full py-2 lg:py-4 rounded-lg shadow-md shadow-[#266595] opacity-90"> 
+            Fact Check
+            <i class="fas fa-hat-cowboy fa-xs" style="color: #ffffff;"></i>
+        </button>
+         </a>
+    </div>
+
+    <div class="flex flex-col lg:mb-52 my-10 mx-2">
+        <div class="  ">
+          <h1 class="lg:text-xl text-sm text-[#FF4560] font-bold text-center mb-8">FAQs people often have?</h1>
+          
+          <div class="space-y-4 text-[#C5CAD0]">
+            <div class="rounded-md shadow-md p-4 bg-gray-900">
+              <div id="question1" class="flex items-center justify-between cursor-pointer">
+                <h2 class="text-md font-semibold">What is Foggymedia?</h2>
+                <svg id="toggle1" class="w-6 h-6 text-gray-500 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <p id="answer1" class="text-gray-500 mt-2 hidden">Foggymedia is a news analytics platform that leverages publicly available data to provide comprehensive analysis and visual representations of India's prevalent news channels through various charts and graphs.</p>
+            </div>
+    
+            <div class="rounded-md shadow-md p-4 bg-gray-900">
+              <div id="question2" class="flex items-center justify-between cursor-pointer">
+                <h2 class="text-md font-semibold">Data sources</h2>
+                <svg id="toggle2" class="w-6 h-6 text-gray-500 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <p id="answer2" class="text-gray-500 mt-2 hidden">Our platform utilizes publicly available tools and APIs to periodically scrape data from prominent sources such as YouTube, Twitter, and various news websites. Through this data scraping process, we gather comprehensive information that enables us to analyze and present valuable insights. These insights are derived from the vast amount of data we collect, allowing us to observe trends, patterns, and sentiments across different platforms. </p>
+            </div>
+    
+            <div class="rounded-md shadow-md p-4 bg-gray-900">
+              <div id="question3" class="flex items-center justify-between cursor-pointer">
+                <h2 class="text-md font-semibold">Foggymedia Usecase</h2>
+                <svg id="toggle3" class="w-6 h-6 text-gray-500 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <p id="answer3" class="text-gray-500 mt-2 hidden">Foggymedia offers a range of valuable use cases to the Indian Users. Firstly, our platform provides comprehensive analysis of news topics through charts and graphs, enabling users to easily grasp the key insights and trends in a visually appealing manner. This empowers individuals to stay well-informed about important events and issues that shape the nation. Additionally, our data-driven approach helps in identifying patterns and sentiments across various media platforms, allowing users to gauge the public opinion and sentiment surrounding specific topics. </p>
+            </div>
+    
+            <div class="rounded-md shadow-md p-4 bg-gray-900">
+              <div id="question4" class="flex items-center justify-between cursor-pointer">
+                <h2 class="text-md font-semibold">API availablity</h2>
+                <svg id="toggle4" class="w-6 h-6 text-gray-500 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <p id="answer4" class="text-gray-500 mt-2 hidden">API endpoints are under development and will soon be available to public,</p>
+            </div>
+    
+
+            </div>
+          </div>
+        </div>
+      </div>
+   
+     <script>
+       document.addEventListener('DOMContentLoaded', function() {
+         function toggleAnswer(questionId, answerId, toggleId) {
+           const question = document.getElementById(questionId);
+           const answer = document.getElementById(answerId);
+           const toggleIcon = document.getElementById(toggleId);
+   
+           question.addEventListener('click', function() {
+             answer.classList.toggle('hidden');
+             toggleIcon.classList.toggle('rotate-180');
+           });
+         }
+   
+         toggleAnswer('question1', 'answer1', 'toggle1');
+         toggleAnswer('question2', 'answer2', 'toggle2');
+         toggleAnswer('question3', 'answer3', 'toggle3');
+         toggleAnswer('question4', 'answer4', 'toggle4');
+         toggleAnswer('question5', 'answer5', 'toggle5');
+       });
+     </script>  
+     
+    <script>
+       
+
+        createModalWithText('trendingTopics', 'The trending topics section showcases the most popular subjects discussed on Indian news channels in the past 4 hours. It provides insights into the current trending topics and highlights the subjects that have garnered significant attention and discussions within the Indian news community.');
+        createModalWithText('monthlyTrend', 'The generated line chart displays the trend of video content over the past 30 days, showcasing the daily video counts for the top 5 topics. It provides a visual representation of how video content has varied across different topics during that time.');
+        createModalWithText('popular', 'This graph represents snapshot of the most talked-about personalities in the news over the past 20 days with our trending graph.');
+        createModalWithText('politicalParty', 'Stay informed with our real-time graph displaying the past 24 hours frequency of political party mentions in Indian news. From major national parties like BJP to regional players, track the latest media trends and stay up-to-date with the dynamic political discourse shaping the headlines');
+        createModalWithText('inflation', 'The chart illustrates the price inflation of mustard oil and petrol in India over the past year');
+        createModalWithText('seats', 'Discover the current ruling parties across India with our interactive map. From the YSRCP in Andhra Pradesh to the BJP in Uttar Pradesh, explore the diverse political landscape of each state at a glance.');
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {% include 'footer.html' %}
+</body>
+</html>
+

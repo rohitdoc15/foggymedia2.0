@@ -1,0 +1,79 @@
+{% load static %}
+{% load tailwind_tags %}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>FoggyMedia: Indian news data visualization</title>
+    <meta name="description" content="Find out which iIndian news channels are pushing which narratives through live WordClouds" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'fa.png' %}"/>
+    <script src="{% static '/js/htmx.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static '/js/blink.js' %}"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9EPJHR2L56"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];500
+  function gtag(){dataLayer.push(arguments);}500500
+  gtag('js', new Date());500
+cd
+</script>
+
+    {% tailwind_css %}
+ <style>.glow {
+    text-shadow: 0 0 10px #fff;
+    transition: box-shadow 0.5s ease-in-out;
+  }
+   </style>
+
+
+</head>
+
+
+
+<body  class="bg-gradient-to-r from-gray-900 to-black" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+<div class="flex bg-cyan-900 rounded-lg rounded-t-none p-4 mb-4 text-3xl  text-red-600 lg:text-sm " role="alert">
+        
+        <div>
+            <span class="font-bold"> 📈 Visualizing News Titles!</span> Foggy-Media generates wordclouds based on recent news published by Indian news channels. <a href="{% url  'click' %}" class="text-cyan-100   underline"> Learn more</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mx-auto  ">
+
+<div class="flex flex-col  items-center  mx-auto -mt-10 ">
+   <div  > <img  class="w-full mt-36 lg:w-80 " src="{% static '/images/logo.png' %}" alt=""></div>
+   
+    <input  class="flex flex-col mt-10 justify-center w-3/4 h-20 text-4xl lg:h-auto lg:w-96 lg:text-sm rounded-lg shadow-md shadow-red-500/50 bg-black text-white placeholder-gray-400  border-cyan-800 hover:bg-slate-600 focus:text-white focus:border-white focus:bg-gray-900 focus:rounded-t-lg focus:rounded-b-none active:rounded-b-none  " type="text" name="q"
+    hx-post="check_channel/"
+    hx-trigger="keyup "
+    hx-target="#new"
+    placeholder="search channels 📺">
+
+    
+
+
+</div>
+</div>
+
+<div id="name" >
+
+<div id="new" class=" my-0 mb-14 mx-auto w-11/12" >
+
+<div  class="flex flex-col justify-center rounded-lg shadow-md shadow-red-500/50 bg-black text-white " id="search-results" > </div >
+</div>
+
+</div>
+
+
+  
+
+</body>
+
+
+

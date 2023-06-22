@@ -1,0 +1,56 @@
+{% load static %}
+{% load tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper carousel
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+    <style>
+        /* Rest of your CSS styles */
+
+        /* Custom styles for Swiper carousel */
+        .swiper-container {
+            /* width: 100%;
+            height: 120px;
+            margin-top: 20px;
+            background-color: #222; */
+        }
+        .swiper-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            font-size: 30px;
+            color: #000;
+            border: 2px solid red; /* Updated border style */
+        }
+    </style>
+</head>

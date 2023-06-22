@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaj Tak Subscriber Growth - Dark Theme</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            color: #fff;
+        }
+
+        canvas {
+            max-width: 800px;
+            max-height: 500px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</div>
+<body>
+    <h1 class="chart-title">Aaj Tak</h1>
+    <canvas id="subscriberChart"></canvas>
+    <script>
+        const channelData = {
+            'Aaj Tak': [100, 120, 140, 160, 180, 200, 220, 240, 260, 280]
+        };
+
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+
+        const dataset = {
+            label: 'Subscriber Growth',
+            data: channelData['Aaj Tak'],
+            borderColor: '#75c0c0',
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            pointRadius: 0,
+            lineTension: 0.4
+        };
+
+        const ctx = document.getElementById('subscriberChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [dataset]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'nearest',
+                        intersect: false,
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255, 255, 255, 0.5)',
+                        borderWidth: 2,
+                        cornerRadius: 4,
+                        displayColors: false,
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return 'Subscribers: ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            drawBorder: false,
+                            borderDash: [8, 4]
+                        },
+                        ticks: {
+                            color: '#fff'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            drawBorder: false,
+                            borderDash: [8, 4]
+                        },
+                        ticks: {
+                            color: '#fff'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html

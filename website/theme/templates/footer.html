@@ -1,0 +1,240 @@
+<footer class=" rounded-md shadow py-4 dark:bg-gray-800 w-full">
+  <div class="container mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline text-white">Foggymedia</a>. All Rights Reserved.
+  </span>
+  <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+      <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+      </li>
+      <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+      </li>
+      <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+      </li>
+      <li>
+          <a href="#" class="hover:underline">Contact</a>
+      </li>
+  </ul>
+  </div>
+
+
+     
+
+  <title>Analytics Layout</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Geologica&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+      .custom-font {
+          font-family: 'Geologica', sans-serif;
+
+      }
+      .display-font {
+          font-family: 'Roboto', sans-serif;
+      }
+  </style>
+
+  <script>
+    // Wait for the DOM to load
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get the search input field and search results container
+      const searchInput = document.getElementById("search-input");
+      const searchResults = document.getElementById("search-results");
+  
+      // Attach an event listener to the search input field
+      searchInput.addEventListener("input", function () {
+        // Get the search query
+        const query = searchInput.value.trim();
+  
+        // Clear the search results container
+        searchResults.innerHTML = "";
+  
+        // Make an AJAX request to fetch the search results
+        if (query.length > 0) {
+          fetch("/check_channel/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRFToken": "{{ csrf_token }}", // Include the CSRF token here
+            },
+            body: "search=" + encodeURIComponent(query),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Process the search results
+              if (data.results && data.results.length > 0) {
+                // Create a dropdown menu for the search results
+                const dropdownMenu = document.createElement("ul");
+                dropdownMenu.classList.add("dropdown-menu");
+  
+                // Sort the results based on maximum video count
+                data.results.sort((a, b) => {
+                  const aMaxCount = Math.max(
+                    ...a.topics.map((topic) => topic.video_count)
+                  );
+                  const bMaxCount = Math.max(
+                    ...b.topics.map((topic) => topic.video_count)
+                  );
+                  return bMaxCount - aMaxCount;
+                });
+  
+                // Loop through the results and create dropdown items
+                for (const result of data.results) {
+                  if (result.name && result.slug) {
+                    // Create a dropdown item for a news channel
+                    const channelItem = document.createElement("li");
+                    const channelLink = document.createElement("a");
+                    channelLink.href = "/channel/" + result.slug + "/";
+                    channelLink.innerHTML = `
+                      <img src="${result.logo}" alt="${result.name}" class="logo">
+                      <span class="channel-name  ">${result.name}</span>
+                    `;
+                    channelItem.appendChild(channelLink);
+                    dropdownMenu.appendChild(channelItem);
+                  }
+  
+                  // Sort the topics based on video count
+                  result.topics.sort((a, b) => b.video_count - a.video_count);
+  
+                  // Loop through the topics and create dropdown items
+                  for (const topic of result.topics) {
+                    const topicItem = document.createElement("li");
+                    const topicLink = document.createElement("a");
+                    topicLink.href = "/topic/" + encodeURIComponent(topic.topic) + "/";
+                    topicLink.innerHTML = `
+                      #${topic.topic}
+                      <div class="px-1"></div>
+                      <div class="inline-flex items-center rounded-lg bg-[#FF4560] opacity-80 px-2 py-1 text-xs font-medium">
+                        ${topic.video_count}
+                      </div>
+                    `;                topicItem.appendChild(topicLink);
+                    dropdownMenu.appendChild(topicItem);
+                  }
+                }
+  
+                // Append the dropdown menu to the search results container
+                searchResults.appendChild(dropdownMenu);
+  
+                // Show the search results container
+                searchResults.style.display = "block";
+              } else {
+                // Hide the search results container if there are no results
+                searchResults.style.display = "none";
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        } else {
+          // Hide the search results container if the query is empty
+          searchResults.style.display = "none";
+        }
+      });
+    });
+  
+
+    {% comment %}  {% endcomment %}
+
+    function createModalWithText(triggerElementId, text) {
+      var modalId = triggerElementId + 'Modal';
+
+      // Create the modal
+      var modalHTML = `
+      <div id="${modalId}" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center  backdrop-filter backdrop-blur-lg dark:border-slate-50/[0.06] bg-white/100 supports-backdrop-blur:bg-white/60 dark:bg-transparent ">
+          <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50 "></div>
+
+          <div class="modal-container w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto backdrop-filter backdrop-blur-lg bg-white/100 supports-backdrop-blur:bg-white/60 dark:bg-transparent text-white border-slate-400 border-2">
+              <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+                  <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                      <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                  </svg>
+                  
+              </div>
+
+              <div class="modal-content py-4 text-left px-6 ">
+                  <div class="flex justify-between items-center pb-3">
+                      <!-- Close button moved here -->
+                  </div>
+                  <p>${text}</p>
+              </div>
+          </div>
+      </div>
+  `;
+
+
+      // Append the modal to the body
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+      var triggerElement = document.getElementById(triggerElementId);
+      var modalElement = document.getElementById(modalId);
+      var modalOverlayElement = modalElement.querySelector('.modal-overlay');
+
+      // Attach click event to the trigger element
+      triggerElement.addEventListener('click', function() {
+          toggleModal(modalElement);
+      });
+
+      // Attach click event to the modal close elements
+      var closeElements = modalElement.getElementsByClassName('modal-close');
+      for (var i = 0; i < closeElements.length; i++) {
+          closeElements[i].addEventListener('click', function() {
+              toggleModal(modalElement);
+          });
+      }
+
+      modalOverlayElement.addEventListener('click', function() {
+          toggleModal(modalElement);
+      });
+
+
+  }
+
+  function toggleModal(modal) {
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+      document.body.classList.toggle('modal-active')
+  }
+
+  document.onkeydown = function(evt) {
+      evt = evt || window.event;
+      var isEscape = false;
+      if ("key" in evt) {
+          isEscape = (evt.key === "Escape" || evt.key === "Esc");
+      } else {
+          isEscape = (evt.keyCode === 27);
+      }
+      if (isEscape && document.body.classList.contains('modal-active')) {
+          var modals = document.getElementsByClassName('modal');
+          for (var i = 0; i < modals.length; i++) {
+              if (!modals[i].classList.contains('opacity-0')) {
+                  toggleModal(modals[i]);
+                  break;
+              }
+          }
+      }
+  };
+  
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+    / Attach a click event listener to the download button
+    document.getElementById('downloadButton').addEventListener('click', function () {
+        // Use html2canvas to capture the chart or HTML element
+        html2canvas(document.getElementById('mtrends')).then(function (canvas) {
+            // Convert the canvas image to a data URL
+            var dataURL = canvas.toDataURL();
+
+            // Create a temporary anchor element
+            var link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'chart.png';
+
+            // Simulate a click on the anchor element to trigger the download
+            link.click();
+        });
+    });
+  
+      </script> 
+</footer>

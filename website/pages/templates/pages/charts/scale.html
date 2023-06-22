@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Ideology Chart</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        .chart-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #999;
+        }
+
+        .chart-point {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 30px;
+        }
+
+        .chart-labels span {
+            display: inline-block;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h4 class="center-align">Political Ideology Chart</h4>
+            <div class="chart-container">
+                <div class="chart-line"></div>
+                <div class="chart-point" id="chartPoint"></div>
+                <div class="chart-labels">
+                    <span>Left</span>
+                    <span>Center</span>
+                    <span>Right</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ideologyScore = 65; // Set the person's ideology score here
+            const chartPoint = document.getElementById("chartPoint");
+
+            // Normalize the ideology score to a value between 0 and 1
+            const normalizedScore = (ideologyScore - 1) / 99;
+
+            // Set the position of the chart point based on the normalized score
+            chartPoint.style.left = `${normalizedScore * 100}%`;
+        });
+    </script>
+</body>
+</html>

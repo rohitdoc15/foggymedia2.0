@@ -1,0 +1,33 @@
+{% load tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<head>
+    <script src="{% static '/js/htmx.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static '/js/blink.js' %}"></script>
+
+   {% tailwind_css %}
+ <style>.glow {
+    text-shadow: 0 0 10px #fff;
+    transition: box-shadow 0.5s ease-in-out;
+  }
+   </style>
+
+
+</head>
+<body>
+
+
+  {%block content%}
+
+
+  {% endblock %}
+</body>
+<h5>Footer</h5>
+
+</html>

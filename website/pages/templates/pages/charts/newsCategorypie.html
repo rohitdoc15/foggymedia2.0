@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Major News Topics - Dark Transparent Design</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+        }
+
+        canvas {
+            max-width: 400px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="topicChart"></canvas>
+    <script>
+        const topicData = [
+            { topic: 'Karnataka Election', videos: 20 },
+            { topic: 'UP Election', videos: 15 },
+            { topic: 'IPL', videos: 12 },
+            { topic: 'Hindu-Muslim', videos: 8 },
+            { topic: 'Modi', videos: 10 },
+        ];
+
+        const topics = topicData.map(topic => topic.topic);
+        const videoCount = topicData.map(topic => topic.videos);
+
+        const ctx = document.getElementById('topicChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: topics,
+                datasets: [{
+                    data: videoCount,
+                    backgroundColor: getRandomColors(videoCount.length),
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        anchor: 'center',
+                        align: 'center',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: (value) => {
+                            return value.toString();
+                        }
+                    }
+                }
+            }
+        });
+
+        function getRandomColors(count) {
+            const colors = [
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 159, 64, 0.8)',
+                // Add more colors here
+            ];
+            return colors.slice(0, count);
+        }
+    </script>
+</body>
+</html>

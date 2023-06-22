@@ -1,0 +1,6 @@
+/website/static/function/wd.py
+/website/static/function/youtube.py
+website/website/__pycache__/
+website/theme/__pycache__/
+website/pages/__pycache__/
+website/pages/migrations/__pycache__/
