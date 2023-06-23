@@ -1,0 +1,277 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html style="bg-red">
+<head>
+  {% load static %}
+    <title>{% block title %}Foggymedia{% endblock %}</title>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+       
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Your CSS and other head content goes here -->
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px; /* Adjust the width as needed */
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background-color: #101827; /* Dark background color */
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: #1018275; /* Scrollbar thumb color */
+      border-radius: 5px; /* Rounded corners */
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #555; /* Scrollbar thumb color on hover */
+    }
+  </style>
+  <style>
+    /* Rest of your CSS styles */
+
+    /* Custom styles for Swiper carousel */
+    .swiper-container {
+        /* width: 100%;
+        height: 120px;
+        margin-top: 20px;
+        background-color: ; */
+    }
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: #000;
+        font-size: 30px;
+        color: #000;
+        border: 2px solid #FF4560; /* Updated border style */
+    }
+</style>
+<style>
+    .custom-font {
+        font-family: 'Geologica', sans-serif;
+
+    }
+    .display-font {
+        font-family: 'Roboto', sans-serif;
+    }
+</style>
+<style>
+  .search-results {
+    position: fixed;
+    z-index: 50;
+    background-color: #1a202c;
+    width: 100%;
+    left: 0;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .search-results .dropdown-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .search-results .dropdown-menu li {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .search-results .dropdown-menu li:hover {
+    background-color: #2d3748;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .search-results .dropdown-menu li:last-child {
+    border-bottom: none;
+  }
+
+  .search-results .dropdown-menu a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-results .dropdown-menu .logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+  }
+
+  .search-results .dropdown-menu .channel-name {
+    margin-right: 0.5rem;
+  }
+
+  .search-results {
+    /* ... */
+    display: none; /* Initially hide the search results */
+  }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .hamburger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .search-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1;
+  }
+
+  .logo-container {
+    margin-left: .25rem;
+    margin-right: .25rem;
+    
+  }
+
+  .logo {
+    width: 100px; /* Adjust the width as needed */
+    height: auto;
+    padding: -0.5rem;
+  }
+
+</style>
+</head>
+<body class="bg-gradient-to-b from-gray-800 to-black  border-gray-400 bg-fixed lg:max-w-[1200px] lg:mx-auto">
+  <!-- Include the header -->
+  {% include 'headerCopy.html' %}
+
+  <!-- Your page content goes here -->
+  {% block content %}
+  {% endblock %}
+
+  <!-- Include the footer -->
+  {% include 'footer.html' %}
+
+  <!-- Include additional scripts -->
+  <script src="path/to/other-script.js"></script>
+  <script>
+    // Initialize Swiper carousel
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+  </script>
+  <script src="{% static '/js/htmx.min.js' %}"></script>
+   <!-- Include the html2canvas library -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+  <script>
+    function downloadElementAsImage(elementId, filename) {
+        // Specify background color for html2canvas capture
+        var backgroundColor = "gray";
+        var element = document.getElementById(elementId);
+
+        // Exclude elements with a specific class from the captured element
+        var excludeElements = element.getElementsByClassName('exclude-from-download');
+        for (var i = 0; i < excludeElements.length; i++) {
+          excludeElements[i].style.display = "none";
+        }
+
+        // Use html2canvas to capture the specified element
+        html2canvas(document.getElementById(elementId), {
+            backgroundColor: backgroundColor
+        }).then(function (canvas) {
+            // Create a new canvas to add the watermark
+            var watermarkCanvas = document.createElement('canvas');
+            var watermarkCtx = watermarkCanvas.getContext('2d');
+
+            // Set the dimensions of the watermark canvas to match the captured canvas
+            watermarkCanvas.width = canvas.width;
+            watermarkCanvas.height = canvas.height;
+
+            // Draw the captured image onto the watermark canvas
+            watermarkCtx.drawImage(canvas, 0, 0);
+
+            // Configure watermark text properties
+            var watermarkText = 'FOGGYMEDIA.IN';
+            var fontSize = 18;
+            var spacing = 180;
+            var angle = -20;
+            var opacity = 0.1;
+            var color = 'rgba(255, 255, 255, ' + opacity + ')';
+            var fontFamily = 'Arial';
+
+            // Set the font properties
+            watermarkCtx.font = fontSize + 'px ' + fontFamily;
+            watermarkCtx.fillStyle = color;
+
+            // Rotate the context to apply the desired angle
+            watermarkCtx.translate(watermarkCanvas.width / 2, watermarkCanvas.height / 2);
+            watermarkCtx.rotate((Math.PI / 180) * angle);
+            watermarkCtx.translate(-watermarkCanvas.width / 2, -watermarkCanvas.height / 2);
+
+            // Loop through the canvas and add watermark text
+            for (var x = 0; x < watermarkCanvas.width; x += spacing) {
+                for (var y = 0; y < watermarkCanvas.height; y += spacing) {
+                    watermarkCtx.fillText(watermarkText, x, y);
+                }
+            }
+
+            // Generate the data URL of the watermarked image
+            var watermarkedDataURL = watermarkCanvas.toDataURL();
+
+            // Create a temporary anchor element
+            var link = document.createElement('a');
+            link.href = watermarkedDataURL;
+            link.download = filename;
+
+            // Simulate a click on the anchor element to trigger the download
+            link.click();
+        });
+    }
+</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const mobileMenuButton = document.getElementById("mobileMenuButton");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const searchInput = document.getElementById("search-input");
+      
+        mobileMenuButton.addEventListener("click", function() {
+          mobileMenu.classList.toggle("hidden");
+        });
+      
+        searchInput.addEventListener("click", function() {
+          if (!mobileMenu.classList.contains("hidden")) {
+            mobileMenu.classList.add("hidden");
+          }
+        });
+      });
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<header>
+    {% load static %}
+    <nav class="w-screen h-14 mb-10 lg:max-w-[1200px] fixed top-0 z-10  backdrop-filter backdrop-blur-lg border-slate-50/[0.06] supports-backdrop-blur:bg-white/60 bg-transparent">
+      <div class="flex items-center  m-2 justify-between">
+        <div class="flex-none w-[25%] h-9 md:w-40 lg:w-48">
+          <a href="/" class="logo-link">
+            <img class="md:-mt-3 lg:w-40" src="{% static 'images/foogymedia_logo.png' %}" alt="Logo">
+          </a>
+        </div>
+    
+        <div class="flex-initial w-[50%] lg:ml-8">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <input type="text" id="search-input" name="search" autocomplete="off" placeholder="Search News channel/topic..." required class="search-input text-white py-2 pl-8 md:w-full focus:outline-none focus:bg-gray-800 placeholder:text-xs border-2 border-transparent hover:border-gray-700 hover:rounded-lg bg-gray-900 rounded-lg focus:ring focus:ring-gray-900 focus:border-none" />
+            <div id="search-results" class="search-results md:mx-auto "></div>
+          </div>
+        </div>
+    
+        <div class="hidden lg:flex lg:flex-auto w-[25%] gap-4 lg:flex-row-reverse">
+          <a href="#" class="text-white hover:bg-gray-700 hover:px-2 hover:text-white block py-2 rounded-md text-sm font-medium">Home</a>
+          <a href="#" class="text-white hover:bg-gray-700 hover:px-2 hover:text-white block py-2 rounded-md text-sm font-medium">About</a>
+          <a href="#" class="text-white hover:bg-gray-700 hover:px-2 hover:text-white block py-2 rounded-md text-sm font-medium">Services</a>
+          <a href="#" class="text-white hover:bg-gray-700 hover:px-2 hover:text-white block py-2 rounded-md text-sm font-medium">Contact</a>
+        </div>
+    
+        <!-- Hamburger Menu -->
+        <div class="flex lg:hidden">
+          <button id="mobileMenuButton" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white" aria-label="Open main menu">
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    
+      <!-- Mobile Menu (hidden by default) -->
+      
+        
+        <div id="mobileMenu" class="hidden md:hidden pt-2 pb-3 space-y-1  z-10 bg-gray-800 rounded-b-lg p-4">
+          <!-- Mobile Menu Items -->
+          <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Services</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+        </div>
+    </nav> 
+     <div class="content-section mt-16 "> </div>   
+</header>
