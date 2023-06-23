@@ -1,8 +1,8 @@
-{% include "header.html" %}
+{% extends 'base.html' %}
 {% load static %}
-<html>
-<body id ="modals-here" class=" w-full  bg-fixed dark text-[#f0f0f0 ] custom-font" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'  >
+{% block title %}Home Page - My Website{% endblock %}
 
+    {% block content %}
     <div class="swiper-container overflow-x-auto swiper-scrollbar" style="scrollbar-width: thin; scrollbar-color: transparent transparent;">
         <div class="swiper-wrapper" style="display: flex;">
             {% for channel in channels %}
@@ -763,7 +763,84 @@
      </script>  
      
     <script>
-       
+        function createModalWithText(triggerElementId, text) {
+            var modalId = triggerElementId + 'Modal';
+      
+            // Create the modal
+            var modalHTML = `
+            <div id="${modalId}" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center  backdrop-filter backdrop-blur-lg dark:border-slate-50/[0.06] bg-white/100 supports-backdrop-blur:bg-white/60 dark:bg-transparent ">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50 "></div>
+      
+                <div class="modal-container w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto backdrop-filter backdrop-blur-lg bg-white/100 supports-backdrop-blur:bg-white/60 dark:bg-transparent text-white border-slate-400 border-2">
+                    <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+                        <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                        </svg>
+                        
+                    </div>
+      
+                    <div class="modal-content py-4 text-left px-6 ">
+                        <div class="flex justify-between items-center pb-3">
+                            <!-- Close button moved here -->
+                        </div>
+                        <p>${text}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+      
+      
+            // Append the modal to the body
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+      
+            var triggerElement = document.getElementById(triggerElementId);
+            var modalElement = document.getElementById(modalId);
+            var modalOverlayElement = modalElement.querySelector('.modal-overlay');
+      
+            // Attach click event to the trigger element
+            triggerElement.addEventListener('click', function() {
+                toggleModal(modalElement);
+            });
+      
+            // Attach click event to the modal close elements
+            var closeElements = modalElement.getElementsByClassName('modal-close');
+            for (var i = 0; i < closeElements.length; i++) {
+                closeElements[i].addEventListener('click', function() {
+                    toggleModal(modalElement);
+                });
+            }
+      
+            modalOverlayElement.addEventListener('click', function() {
+                toggleModal(modalElement);
+            });
+      
+      
+        }
+      
+        function toggleModal(modal) {
+            modal.classList.toggle('opacity-0')
+            modal.classList.toggle('pointer-events-none')
+            document.body.classList.toggle('modal-active')
+        }
+      
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            var isEscape = false;
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+            } else {
+                isEscape = (evt.keyCode === 27);
+            }
+            if (isEscape && document.body.classList.contains('modal-active')) {
+                var modals = document.getElementsByClassName('modal');
+                for (var i = 0; i < modals.length; i++) {
+                    if (!modals[i].classList.contains('opacity-0')) {
+                        toggleModal(modals[i]);
+                        break;
+                    }
+                }
+            }
+        };
 
         createModalWithText('trendingTopics', 'The trending topics section showcases the most popular subjects discussed on Indian news channels in the past 4 hours. It provides insights into the current trending topics and highlights the subjects that have garnered significant attention and discussions within the Indian news community.');
         createModalWithText('monthlyTrend', 'The generated line chart displays the trend of video content over the past 30 days, showcasing the daily video counts for the top 5 topics. It provides a visual representation of how video content has varied across different topics during that time.');
@@ -774,7 +851,5 @@
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    {% include 'footer.html' %}
-</body>
-</html>
 
+{% endblock %}
